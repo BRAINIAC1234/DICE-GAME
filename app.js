@@ -1,23 +1,14 @@
-// Тоглогчийн ээлжийг хадгалах хувьсагч, нэгдүгээр тоглогчийг 0, хоёрдугаар тоглогчийг 1 гэж тэмдэглэе.
-var activePlayer = 0;
+// Togloomiin buh gazart ashiglahgdah global huvisagch
+// ali toglogch shoo shideh ve gedgiig end hadgalna.
+var activePlayer;
+// hoyr toglogchiin tsugluulsan onoonuud .
+var score;
+// idewhtei toglogchiin tsugluulj bga eeljiin onoo.
+var roundScore;
 
-// Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
-var scores = [0, 0];
+// shoonii zurgiig uzuuleh elementiig dom-oos haij olood end hadgalay
 
-// Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
-var roundScore = 0;
-
-// Шооны аль талаараа буусныг хадгалах хувьсагч хэрэгтэй, 1-6 гэсэн утгыг энэ хувьсагчид санамсаргүйгээр үүсгэж өгнө.
-// var diceNumber = Math.floor(Math.random() * 6) + 1;
-
-// Програм эхлэхэд бэлдэе
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
-
-var diceDom = document.querySelector(" .dice ");
-diceDom.style.display = "none";
+var diceDom = document.querySelector(".dice ");
 
 // Шоог шидэх эвент листенер
 document.querySelector(".btn-roll").addEventListener("click", function () {
@@ -83,5 +74,38 @@ function switchToNextPlayer() {
   diceDom.style.display = "none";
 }
 
-// Шинэ тоглоом эхлүүлэх товчний эвент листенер
-doc;
+function newgame() {
+  // Тоглогчийн ээлжийг хадгалах хувьсагч, нэгдүгээр тоглогчийг 0, хоёрдугаар тоглогчийг 1 гэж тэмдэглэе.
+  activePlayer = 0;
+
+  // Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
+  scores = [0, 0];
+
+  // Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
+  roundScore = 0;
+
+  // Шооны аль талаараа буусныг хадгалах хувьсагч хэрэгтэй, 1-6 гэсэн утгыг энэ хувьсагчид санамсаргүйгээр үүсгэж өгнө.
+  // var diceNumber = Math.floor(Math.random() * 6) + 1;
+
+  // Програм эхлэхэд бэлдэе
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+
+  // Toglogchdiin neriig butsaaj gargah
+  document.getElementById("name-0").textContent = "player 1";
+  document.getElementById("name-1").textContent = "player 2";
+
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+
+  document.querySelector(".player-0-panel").classList.add("active");
+  diceDom.style.display = "none";
+}
+
+// NEW GAME буюу Шинэ тоглоом эхлүүлэх товчний эвент листенер
+document.querySelector(".btn-new").addEventListener("click", newgame);
