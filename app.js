@@ -1,4 +1,6 @@
 // Togloomiin buh gazart ashiglahgdah global huvisagch
+// Togloom duussan esehiig hadgalah tolowiin huvisagch
+var isGameOver;
 // ali toglogch shoo shideh ve gedgiig end hadgalna.
 var activePlayer;
 // hoyr toglogchiin tsugluulsan onoonuud .
@@ -10,25 +12,30 @@ var roundScore;
 
 var diceDom = document.querySelector(".dice ");
 
+newgame();
+
 // Шоог шидэх эвент листенер
 document.querySelector(".btn-roll").addEventListener("click", function () {
-  // 1-6 доторх санамсаргүй нэг тоо гаргаж авна
-  var diceNumber = Math.floor(Math.random() * 6) + 1;
+  if (isGameOver !== true) {
+    // 1-6 доторх санамсаргүй нэг тоо гаргаж авна
+    var diceNumber = Math.floor(Math.random() * 6) + 1;
 
-  //   Шооны зургийг вэб дээр гаргаж ирнэ.
-  diceDom.style.display = "block";
-  //   Буусан санамсаргүй тоонд харгалзах шооны зургийг вэб дээр гаргаж ирнэ.
-  diceDom.src = "dice-" + diceNumber + ".png";
+    //   Шооны зургийг вэб дээр гаргаж ирнэ.
+    diceDom.style.display = "block";
+    //   Буусан санамсаргүй тоонд харгалзах шооны зургийг вэб дээр гаргаж ирнэ.
+    diceDom.src = "dice-" + diceNumber + ".png";
 
-  // Буусан тоо нь 1ээс ялгаатай бол идэвхтэй тоглогчийн ээлжийн оноог нэмэгдүүлнэ.
-  if (diceNumber !== 1) {
-    // 1-ees yalgaatai too buulaa.
-    roundScore = roundScore + diceNumber;
-    document.getElementById("current-" + activePlayer).textContent = roundScore;
-  } else {
-    // 1 buusan tul toglogchiin eeljiig ene hesegt solij ogno.
+    // Буусан тоо нь 1ээс ялгаатай бол идэвхтэй тоглогчийн ээлжийн оноог нэмэгдүүлнэ.
+    if (diceNumber !== 1) {
+      // 1-ees yalgaatai too buulaa.
+      roundScore = roundScore + diceNumber;
+      document.getElementById("current-" + activePlayer).textContent =
+        roundScore;
+    } else {
+      // 1 buusan tul toglogchiin eeljiig ene hesegt solij ogno.
 
-    switchToNextPlayer();
+      switchToNextPlayer();
+    }
   }
 });
 
@@ -44,6 +51,8 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
   // Уг тоглогч хожсон эсэхийг (оноо нь 100-с их эсэх) шалгах
 
   if (scores[activePlayer] >= 100) {
+    // Togloomiig duussan tolowt oruulna
+    isGameOver = true;
     // Ялагч гэсэн текстийг нэрнийх нь оронд гаргана
     document.getElementById("name-" + activePlayer).textContent = "WWCD!!!";
     document
@@ -75,6 +84,8 @@ function switchToNextPlayer() {
 }
 
 function newgame() {
+  // Togloom ehellee gedeg tolowt oruulna.
+  isGameOver = false;
   // Тоглогчийн ээлжийг хадгалах хувьсагч, нэгдүгээр тоглогчийг 0, хоёрдугаар тоглогчийг 1 гэж тэмдэглэе.
   activePlayer = 0;
 
