@@ -37,22 +37,51 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
   } else {
     // 1 buusan tul toglogchiin eeljiig ene hesegt solij ogno.
 
-    // ene toglogchiin eeljindee tsugluulsan onoog 0 bolgono.
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-    // toglogchiin eeljiig nogoo toglogch ruu shiljuulne.
-    // herev idewhtei toglogch n 0 baiwal idewhtei toglogchiig 1 bolgo
-    // ugui bol idewhtei toglogchiig 0 bolgo
-
-    if (activePlayer === 0) {
-      activePlayer = 1;
-    } else {
-      activePlayer = 0;
-    }
-
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-    // shoog tur alga bolgoh
-    diceDom.style.display = "none";
+    switchToNextPlayer();
   }
 });
+
+// HOLD товчлуурын эвент листенер
+document.querySelector(".btn-hold").addEventListener("click", function () {
+  // Уг тоглогчийн цуглуулсан ээлжний оноог глобал оноон дээр нэмж өгнө.
+
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+
+  // Дэлгэц дээр оноог нь өөрчилнө
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+  // Уг тоглогч хожсон эсэхийг (оноо нь 100-с их эсэх) шалгах
+
+  if (scores[activePlayer] >= 100) {
+    // Ялагч гэсэн текстийг нэрнийх нь оронд гаргана
+    document.getElementById("name-" + activePlayer).textContent = "WWCD!!!";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+  } else {
+    // Тоглогчийн ээлжийг солино
+    switchToNextPlayer();
+  }
+});
+
+// DRY DONT REPEAT
+// Энэ Функц нь тоглох ээлжийг дараачийн тоглогч руу шилжүүлдэг.
+function switchToNextPlayer() {
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = 0;
+  // toglogchiin eeljiig nogoo toglogch ruu shiljuulne.
+
+  if (activePlayer === 0) {
+    activePlayer = 1;
+  } else {
+    activePlayer = 0;
+  }
+
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+  // shoog tur alga bolgoh
+  diceDom.style.display = "none";
+}
+
+// Шинэ тоглоом эхлүүлэх товчний эвент листенер
+doc;
